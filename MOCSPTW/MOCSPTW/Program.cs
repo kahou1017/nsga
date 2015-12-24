@@ -8,14 +8,43 @@ namespace MOCSPTW
     {
         static void Main(string[] args)
         {
-            List<Individual> _individualArray = new List<Individual>(Constants.POP_SIZE);
+            //List<Individual> _individualArray = new List<Individual>(Constants.POP_SIZE);
 
             Console.SetBufferSize(120, 5000);
 
+            int number_of_objectives = 10;
+
+            Random rand = new Random(Guid.NewGuid().GetHashCode());
+
+
+            Individual _individual1 = new Individual(rand);
+
+            _individual1.SetObjectiveValues(new double[] { 10.2, 1.12, 95.87 });
+
+            Individual _individual2 = new Individual(rand);
+
+            _individual2.SetObjectiveValues(new double[] { 210.99, 12.57, 58.12 });
+
+
+            // true  if _individual1 Dominates _individual2
+            // false if _individual2 Dominates _individual1
+            Fitness.Dominates(new Fitness.ObjectiveType[] 
+            {
+                Fitness.ObjectiveType.Min, // distance
+                Fitness.ObjectiveType.Min, // soical
+                Fitness.ObjectiveType.Min  // time
+            },  
+            _individual1, 
+            _individual2);
+
+
+            /*
             for (int i = 0; i < Constants.POP_SIZE; i++)
             {
-                Individual _individual = new Individual();
-                Random rand = new Random(Guid.NewGuid().GetHashCode());
+                Individual _individual = new Individual(rand, number_of_objectives);
+
+                _individual.SetObjectiveValues(new double[] { 10.2, 223.12, 95.87});
+
                 _individual.point_x = rand.Next(0, 100);
                 _individual.point_y = rand.Next(0, 100) ;
                 _individualArray.Add(_individual);
@@ -30,6 +59,8 @@ namespace MOCSPTW
 
             //Thread sim = new Thread(new ParameterizedThreadStart(Simulation));
             //sim.Start(oArray);
+            */
+
         }
 
         private static void Simulation(object P)

@@ -14,11 +14,12 @@ namespace MOCSPTW
 
                 foreach (Individual q in populations)
                 {
-                    if (Fitness.Dominates(p, q))  //check if p dominates q
+                    //if (Fitness.Dominates(p, q))  //check if p dominates q
+                    if (p.Dominates(q))  //check if p dominates q
                     {
                         p.pDom.Add(q); //true; add q to solutions p dominates
                     }
-                    else if(Fitness.Dominates(q, p))
+                    else if(q.Dominates(p))
                     {
                         p.nDom++;  //false; add 1 to count organisms that dominate p
                     }

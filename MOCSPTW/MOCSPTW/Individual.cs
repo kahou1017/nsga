@@ -5,15 +5,24 @@ namespace MOCSPTW
 {
     public class Individual
     {
-        public Individual()
+        public Individual(Random rand)
         {
-            Random rand = new Random();
             DNA = rand.Next();
+
+            
         }
 
-        public int DNA { get; set; }
-        public double point_x { get; set; }
-        public double point_y { get; set; }
+
+        public void SetObjectiveValues(double[] values)
+        {
+            Objectives = values;
+        }
+
+
+        public int DNA;
+        //public double point_x;
+        //public double point_y;
+        public double[] Objectives;
 
         public List<Individual> pDom = new List<Individual>(); // contain all the individuals that is being dominated by p.
         public int nDom = 0; //number of individuals that dominated p.
