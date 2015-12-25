@@ -50,6 +50,7 @@
     <Compile Include="Fitness.cs" />
     <Compile Include="Individual.cs" />
     <Compile Include="NonDominatedSorting.cs" />
+    <Compile Include="ObjectiveType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

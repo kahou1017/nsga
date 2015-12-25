@@ -8,8 +8,6 @@ namespace MOCSPTW
         public Individual(Random rand)
         {
             DNA = rand.Next();
-
-            
         }
 
 
@@ -20,21 +18,13 @@ namespace MOCSPTW
 
 
         public int DNA;
-        //public double point_x;
-        //public double point_y;
+
         public double[] Objectives;
 
         public List<Individual> pDom = new List<Individual>(); // contain all the individuals that is being dominated by p.
-        public int nDom = 0; //number of individuals that dominated p.
-        public double distance = 0;
-        public List<int> m = new List<int>(); // mth objective function
 
-        public Individual CompareTo(Individual p, Individual q, int i)
-        {
-            if (p.m[i] > q.m[i])
-                return p;
-            else
-                return q;
-        }
+        public int nDom = 0; //number of individuals that dominated p.
+
+        public double distance = 0;
     }
 }

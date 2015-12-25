@@ -16,7 +16,6 @@ namespace MOCSPTW
 
             Random rand = new Random(Guid.NewGuid().GetHashCode());
 
-
             Individual _individual1 = new Individual(rand);
 
             _individual1.SetObjectiveValues(new double[] { 10.2, 1.12, 95.87 });
@@ -28,14 +27,18 @@ namespace MOCSPTW
 
             // true  if _individual1 Dominates _individual2
             // false if _individual2 Dominates _individual1
-            Fitness.Dominates(new Fitness.ObjectiveType[] 
-            {
-                Fitness.ObjectiveType.Min, // distance
-                Fitness.ObjectiveType.Min, // soical
-                Fitness.ObjectiveType.Min  // time
-            },  
-            _individual1, 
-            _individual2);
+            bool results = Fitness.Dominates(
+                new ObjectiveType[]
+                {
+                    ObjectiveType.Min,
+                    ObjectiveType.Min,
+                    ObjectiveType.Max
+                },
+                _individual1,
+                _individual2
+            );
+
+            Console.WriteLine("======================================================================");
 
 
             /*
