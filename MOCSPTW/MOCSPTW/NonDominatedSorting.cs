@@ -16,20 +16,23 @@ namespace MOCSPTW
                 {
                     var _objectiveType = new ObjectiveType[]
                     {
-                        ObjectiveType.Max,
-                        ObjectiveType.Max,
-                        ObjectiveType.Max,
-                        ObjectiveType.Max,
-                        ObjectiveType.Max,
+                        ObjectiveType.Min,
+                        ObjectiveType.Min,
+                        ObjectiveType.Min,
+                        ObjectiveType.Min,
+                        ObjectiveType.Min,
                     };
 
-                    if (Fitness.Dominates(_objectiveType, p, q)) //check if p dominates q
+                    if (p.Objectives != q.Objectives)
                     {
-                        p.pDom.Add(q); //true; add q to solutions p dominates
-                    }
-                    else if (Fitness.Dominates(_objectiveType, q, p))
-                    {
-                        p.nDom++;  //false; add 1 to count organisms that dominate p
+                        if (Fitness.Dominates(_objectiveType, p, q)) //check if p dominates q
+                        {
+                            p.pDom.Add(q); //true; add q to solutions p dominates
+                        }
+                        else if (Fitness.Dominates(_objectiveType, q, p))
+                        {
+                            p.nDom++;  //false; add 1 to count organisms that dominate p
+                        }
                     }
                 }
 
@@ -46,19 +49,18 @@ namespace MOCSPTW
                 List<Individual> Q = new List<Individual>();
                 foreach (Individual p in fronts[i])
                 {
-                    //foreach (Individual q in p.PDom)
-                    //{
-                    //    q.nDom--;
+                    foreach (Individual q in p.pDom)
+                    {
+                        q.nDom--;
 
-                    //    if (q.nDom == 0) //p belongs to next front
-                    //    {
-                    //        Q.Add(q);
-                    //    }
-                    //}
+                        if (q.nDom == 0) //p belongs to next front
+                        {
+                            Q.Add(q);
+                        }
+                    }
                 }
 
                 i++;
-                fronts.Add(new List<Individual>());
                 fronts[i] = Q;
             }
 

@@ -8,7 +8,7 @@ namespace MOCSPTW
     {
         static void Main(string[] args)
         {
-            //List<Individual> _individualArray = new List<Individual>(Constants.POP_SIZE);
+            List<Individual> _individualArray = new List<Individual>(Constants.POP_SIZE);
 
             Console.SetBufferSize(120, 5000);
 
@@ -17,26 +17,66 @@ namespace MOCSPTW
             Random rand = new Random(Guid.NewGuid().GetHashCode());
 
             Individual _individual1 = new Individual(rand);
-
-            _individual1.SetObjectiveValues(new double[] { 10.2, 1.12, 95.87 });
-
             Individual _individual2 = new Individual(rand);
+            Individual _individual3 = new Individual(rand);
+            Individual _individual4 = new Individual(rand);
+            Individual _individual5 = new Individual(rand);
+            Individual _individual6 = new Individual(rand);
+            Individual _individual7 = new Individual(rand);
+            Individual _individual8 = new Individual(rand);
+            Individual _individual9 = new Individual(rand);
+            Individual _individual10 = new Individual(rand);
+            Individual _individual11 = new Individual(rand);
+            Individual _individual12 = new Individual(rand);
+            Individual _individual13 = new Individual(rand);
+            Individual _individual14 = new Individual(rand);
+            Individual _individual15 = new Individual(rand);
 
-            _individual2.SetObjectiveValues(new double[] { 210.99, 12.57, 58.12 });
+            _individual1.SetObjectiveValues(new double[] { 1, 5 });
+            _individual2.SetObjectiveValues(new double[] { 1.5, 4 });
+            _individual3.SetObjectiveValues(new double[] { 2, 3 });
+            _individual4.SetObjectiveValues(new double[] { 2.5, 1 });
+            _individual5.SetObjectiveValues(new double[] { 4, 0.5 });
+            _individual6.SetObjectiveValues(new double[] { 6, 0.5 });
+            _individual7.SetObjectiveValues(new double[] { 2.5, 4 });
+            _individual8.SetObjectiveValues(new double[] { 3, 3 });
+            _individual9.SetObjectiveValues(new double[] { 4, 2 });
+            _individual10.SetObjectiveValues(new double[] { 4.5, 1.5 });
+            _individual11.SetObjectiveValues(new double[] { 3, 3.5 });
+            _individual12.SetObjectiveValues(new double[] { 3.5, 3 });
+            _individual13.SetObjectiveValues(new double[] { 2, 5 });
+            _individual14.SetObjectiveValues(new double[] { 5, 4 });
+            _individual15.SetObjectiveValues(new double[] { 6, 3 });
 
+            _individualArray.Add(_individual1);
+            _individualArray.Add(_individual2);
+            _individualArray.Add(_individual3);
+            _individualArray.Add(_individual4);
+            _individualArray.Add(_individual5);
+            _individualArray.Add(_individual6);
+            _individualArray.Add(_individual7);
+            _individualArray.Add(_individual8);
+            _individualArray.Add(_individual9);
+            _individualArray.Add(_individual10);
+            _individualArray.Add(_individual11);
+            _individualArray.Add(_individual12);
+            _individualArray.Add(_individual13);
+            _individualArray.Add(_individual14);
+            _individualArray.Add(_individual15);
 
-            // true  if _individual1 Dominates _individual2
-            // false if _individual2 Dominates _individual1
-            bool results = Fitness.Dominates(
-                new ObjectiveType[]
+            List<List<Individual>> fronts = new NonDominatedSorting().FastNSA(_individualArray);
+
+            for (int i = 0; i < fronts.Count; i++)
+            {
+                Console.WriteLine("======================================================================");
+                Console.WriteLine("Front Level: " + (i+1) );
+                for (int j = 0; j < fronts[i].Count; j++)
                 {
-                    ObjectiveType.Min,
-                    ObjectiveType.Min,
-                    ObjectiveType.Max
-                },
-                _individual1,
-                _individual2
-            );
+                    Console.WriteLine("Solution: " + fronts[i][j].Objectives[0] + "," + fronts[i][j].Objectives[1]);
+                }
+                Console.WriteLine("This Front " + (i + 1) + " Have " + fronts[i].Count + " Solutions");
+            }
+
 
             Console.WriteLine("======================================================================");
 
