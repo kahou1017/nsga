@@ -28,7 +28,5 @@ namespace MOCSPTW
         public double distance = 0;
 
         public int rank = 0;
-
-        public ObjectiveType[] m_obj = Constants._ObjectiveTypes;
     }
 }

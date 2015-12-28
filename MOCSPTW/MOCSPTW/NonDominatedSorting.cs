@@ -5,7 +5,13 @@ namespace MOCSPTW
 {
     public class NonDominatedSorting
     {
-        public List<List<Individual>> FastNSA(List<Individual> populations)
+        /// <summary>
+        /// Fast non-dominated sorting 
+        /// </summary>
+        /// <param name="objective_types"></param>
+        /// <param name="populations"></param>
+        /// <returns></returns>
+        public List<List<Individual>> FastNSA(ObjectiveType[] objective_types, List<Individual> populations)
         {
             List<List<Individual>> fronts = new List<List<Individual>>();
             
@@ -16,11 +22,11 @@ namespace MOCSPTW
                 {
                     if (p.Objectives != q.Objectives)
                     {
-                        if (Fitness.Dominates(Constants._ObjectiveTypes, p, q)) //check if p dominates q
+                        if (Fitness.Dominates(objective_types, p, q)) //check if p dominates q
                         {
                             p.pDom.Add(q); //true; add q to solutions p dominates
                         }
-                        else if (Fitness.Dominates(Constants._ObjectiveTypes, q, p))
+                        else if (Fitness.Dominates(objective_types, q, p))
                         {
                             p.nDom++;  //false; add 1 to count organisms that dominate p
                         }
