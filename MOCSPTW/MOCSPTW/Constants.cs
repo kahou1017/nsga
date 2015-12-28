@@ -7,5 +7,9 @@
         public const int MAX_GENERATIONS = 1000;
         public const double FMAX = 100;
         public const double FMIN = 0;
+        public static readonly ObjectiveType[] _ObjectiveTypes = {
+            ObjectiveType.Min,
+            ObjectiveType.Min
+        };
     }
 }

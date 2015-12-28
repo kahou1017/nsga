@@ -10,7 +10,7 @@ namespace MOCSPTW
         {
             List<Individual> _individualArray = new List<Individual>(Constants.POP_SIZE);
 
-            Console.SetBufferSize(120, 5000);
+            Console.SetBufferSize(100, 5000);
 
             int number_of_objectives = 10;
 
@@ -66,17 +66,42 @@ namespace MOCSPTW
 
             List<List<Individual>> fronts = new NonDominatedSorting().FastNSA(_individualArray);
 
+            Console.WriteLine("====== Fast Non-Dominated Sorting ======");
+
             for (int i = 0; i < fronts.Count; i++)
             {
-                Console.WriteLine("======================================================================");
-                Console.WriteLine("Front Level: " + (i+1) );
-                for (int j = 0; j < fronts[i].Count; j++)
+                if (fronts[i].Count != 0)
                 {
-                    Console.WriteLine("Solution: " + fronts[i][j].Objectives[0] + "," + fronts[i][j].Objectives[1]);
+                    Console.WriteLine("====== Front Level: " + (i + 1) + " ======");
+                    for (int j = 0; j < fronts[i].Count; j++)
+                    {
+                        Console.WriteLine("Solution: {0,3},{1,3}", fronts[i][j].Objectives[0], fronts[i][j].Objectives[1]);
+                    }
+                    Console.WriteLine("This Front " + (i + 1) + " Have " + fronts[i].Count + " Solutions");
                 }
-                Console.WriteLine("This Front " + (i + 1) + " Have " + fronts[i].Count + " Solutions");
             }
 
+            Console.WriteLine("====== Crowding Distance Sorting ======");
+
+            for (int i = 0; i < fronts.Count; i++)
+            {
+                if (fronts[i].Count != 0)
+                {
+                    Console.WriteLine("front " + (i+1) + " sorting");
+                    new CrowdingDistanceSorting().CDSA(fronts[i]);
+                    Console.WriteLine("====================");
+                }
+            }
+
+            Console.WriteLine("======================================================================");
+
+            for (int i = 0; i < fronts.Count; i++)
+            {
+                if (fronts[i].Count != 0)
+                {
+                    Util.DescendSort(fronts[i], 0, fronts[i].Count - 1);
+                }
+            }
 
             Console.WriteLine("======================================================================");
 

@@ -26,5 +26,9 @@ namespace MOCSPTW
         public int nDom = 0; //number of individuals that dominated p.
 
         public double distance = 0;
+
+        public int rank = 0;
+
+        public ObjectiveType[] m_obj = Constants._ObjectiveTypes;
     }
 }

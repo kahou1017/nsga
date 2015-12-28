@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace MOCSPTW
 {
@@ -7,29 +8,19 @@ namespace MOCSPTW
         public List<List<Individual>> FastNSA(List<Individual> populations)
         {
             List<List<Individual>> fronts = new List<List<Individual>>();
+            
 
             foreach (Individual p in populations)
             {
-                fronts.Add(new List<Individual>());
-
                 foreach (Individual q in populations)
                 {
-                    var _objectiveType = new ObjectiveType[]
-                    {
-                        ObjectiveType.Min,
-                        ObjectiveType.Min,
-                        ObjectiveType.Min,
-                        ObjectiveType.Min,
-                        ObjectiveType.Min,
-                    };
-
                     if (p.Objectives != q.Objectives)
                     {
-                        if (Fitness.Dominates(_objectiveType, p, q)) //check if p dominates q
+                        if (Fitness.Dominates(Constants._ObjectiveTypes, p, q)) //check if p dominates q
                         {
                             p.pDom.Add(q); //true; add q to solutions p dominates
                         }
-                        else if (Fitness.Dominates(_objectiveType, q, p))
+                        else if (Fitness.Dominates(Constants._ObjectiveTypes, q, p))
                         {
                             p.nDom++;  //false; add 1 to count organisms that dominate p
                         }
@@ -38,6 +29,8 @@ namespace MOCSPTW
 
                 if (p.nDom == 0) //true; p belongs to the "First Front"
                 {
+                    p.rank = 1;
+                    fronts.Add(new List<Individual>());
                     fronts[0].Add(p);
                 }
             }
@@ -59,9 +52,8 @@ namespace MOCSPTW
                         }
                     }
                 }
-
                 i++;
-                fronts[i] = Q;
+                fronts[i].AddRange(Q);
             }
 
             return fronts;
