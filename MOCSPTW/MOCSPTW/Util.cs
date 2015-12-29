@@ -191,7 +191,7 @@ namespace MOCSPTW
 
         /// <summary>
         /// Crowding Distance Sorting;
-        /// Use this function can calculate all individual distance and sort them;
+        /// Use this function can calculate the individual distance of front and sort them;
         /// </summary>
         /// <param name="objective_types"></param>
         /// <param name="front"></param>
