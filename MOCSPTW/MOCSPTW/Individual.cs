@@ -10,7 +10,10 @@ namespace MOCSPTW
             DNA = rand.Next();
         }
 
-
+        /// <summary>
+        /// Set the number of the objective values
+        /// </summary>
+        /// <param name="values"></param>
         public void SetObjectiveValues(double[] values)
         {
             Objectives = values;

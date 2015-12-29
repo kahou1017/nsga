@@ -5,6 +5,12 @@ namespace MOCSPTW
 {
     class Util
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_individualArray"></param>
+        /// <param name="indexA"></param>
+        /// <param name="indexB"></param>
         public static void Swap(List<Individual> _individualArray, int indexA, int indexB)
         {
             Individual temp = _individualArray[indexA];
@@ -12,6 +18,14 @@ namespace MOCSPTW
             _individualArray[indexB] = temp;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="_individualArray"></param>
+        /// <param name="num_obj"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public static List<Individual> QuickSort(List<Individual> _individualArray, int num_obj, int left, int right)
         {
             if (right <= left)
@@ -38,7 +52,8 @@ namespace MOCSPTW
         }
 
         /// <summary>
-        /// Fast non-dominated sorting 
+        /// Fast Non-Dominated Sorting;
+        /// Use this function can sort populations rank and level;
         /// </summary>
         /// <param name="objective_types"></param>
         /// <param name="populations"></param>
@@ -107,7 +122,8 @@ namespace MOCSPTW
         }
 
         /// <summary>
-        /// Crowding Distance Assignment
+        /// Crowding Distance Assignment;
+        /// Use this function can calculate all the individual of each front distance;
         /// </summary>
         /// <param name="objective_types"></param>
         /// <param name="I"></param>
@@ -140,6 +156,14 @@ namespace MOCSPTW
             }
         }
 
+        /// <summary>
+        /// DescendSort;
+        /// Use this function can according to front distance; 
+        /// </summary>
+        /// <param name="_individualArray"></param>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
         public List<Individual> DescendSort(List<Individual> _individualArray, int left, int right)
         {
             if (right <= left)
@@ -165,6 +189,13 @@ namespace MOCSPTW
             return _individualArray;
         }
 
+        /// <summary>
+        /// Crowding Distance Sorting;
+        /// Use this function can calculate all individual distance and sort them;
+        /// </summary>
+        /// <param name="objective_types"></param>
+        /// <param name="front"></param>
+        /// <returns></returns>
         public List<Individual> CrowdingDistanceSorting(ObjectiveType[] objective_types, List<Individual> front)
         {
             List<Individual> results = new List<Individual>();
