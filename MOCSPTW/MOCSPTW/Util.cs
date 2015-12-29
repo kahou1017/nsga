@@ -43,10 +43,11 @@ namespace MOCSPTW
         /// <param name="objective_types"></param>
         /// <param name="populations"></param>
         /// <returns></returns>
-        public List<List<Individual>> FastNSA(ObjectiveType[] objective_types, List<Individual> populations)
+        public List<List<Individual>> FastNonDominatedSorting(ObjectiveType[] objective_types, List<Individual> populations)
         {
             List<List<Individual>> fronts = new List<List<Individual>>();
 
+            fronts.Add(new List<Individual>());
 
             foreach (Individual p in populations)
             {
@@ -66,9 +67,7 @@ namespace MOCSPTW
                 }
 
                 if (p.nDom == 0) //true; p belongs to the "First Front"
-                {
-                    p.rank = 1;
-                    fronts.Add(new List<Individual>());
+                { 
                     fronts[0].Add(p);
                 }
             }
@@ -80,6 +79,7 @@ namespace MOCSPTW
                 List<Individual> Q = new List<Individual>();
                 foreach (Individual p in fronts[i])
                 {
+                    p.rank = i + 1;
                     foreach (Individual q in p.pDom)
                     {
                         q.nDom--;
@@ -91,7 +91,16 @@ namespace MOCSPTW
                     }
                 }
                 i++;
-                fronts[i].AddRange(Q);
+                fronts.Add(new List<Individual>());
+                fronts[i] = Q;
+            }
+
+            for (int idx = 0; idx < fronts.Count; idx++)
+            {
+                if (fronts[idx].Count == 0)
+                {
+                    fronts.RemoveAt(idx);
+                }
             }
 
             return fronts;
@@ -115,14 +124,12 @@ namespace MOCSPTW
                 Console.WriteLine("Object " + (g + 1) + "'s sorting");
                 for (int i = 0; i < I.Count; i++)
                 {
-
                     Console.WriteLine("Solution {0,2}: {1,3},{2,3}", (i + 1), I[i].Objectives[0], I[i].Objectives[1]);
-
                 }
                 
                 // -1 noted that are equal infinite
-                I[0].distance = -1;
-                I[I.Count - 1].distance = -1;
+                I[0].distance = Int32.MaxValue;
+                I[I.Count - 1].distance = Int32.MaxValue;
 
                 for (int i = 1; i < I.Count - 1; i++)
                 {
@@ -158,7 +165,7 @@ namespace MOCSPTW
             return _individualArray;
         }
 
-        public List<Individual> CDS(ObjectiveType[] objective_types, List<Individual> front)
+        public List<Individual> CrowdingDistanceSorting(ObjectiveType[] objective_types, List<Individual> front)
         {
             List<Individual> results = new List<Individual>();
             CrowdingDistanceAssignment(objective_types, front);

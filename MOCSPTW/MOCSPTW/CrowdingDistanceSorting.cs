@@ -27,8 +27,8 @@ namespace MOCSPTW
                     Console.WriteLine("Solution {0,2}: {1,3},{2,3}", (i+1), I[i].Objectives[0], I[i].Objectives[1]);
 
                 }
-                I[0].distance = Constants.FMAX;
-                I[I.Count - 1].distance = Constants.FMAX;
+                I[0].distance = -1;
+                I[I.Count - 1].distance = -1;
 
                 for (int i = 1; i < I.Count - 1; i++)
                 {
