@@ -113,11 +113,11 @@ namespace MOCSPTW
 
             for (int i = 0; i < fronts.Count; i++)
             {
-                Console.WriteLine("front " + (i+1) + " sorting");
                 List<Individual> I = new Util().CrowdingDistanceSorting(_ObjectiveTypes, fronts[i]);
+                Console.WriteLine("Front {0} Crowding Distance Sorting Results:", (i+1));
                 for (int j = 0; j < I.Count; j++)
                 {
-                    Console.WriteLine("Crowding Distance Sorting Results: {0,3},{1,3}", I[j].Objectives[0], I[j].Objectives[1]);
+                    Console.WriteLine("{0,3},{1,3}; distance: {2,10}", I[j].Objectives[0], I[j].Objectives[1], I[j].distance);
                 }
                 Console.WriteLine("====================");
             }

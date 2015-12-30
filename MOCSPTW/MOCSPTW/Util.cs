@@ -196,13 +196,27 @@ namespace MOCSPTW
         /// <param name="objective_types"></param>
         /// <param name="front"></param>
         /// <returns></returns>
-        public List<Individual> CrowdingDistanceSorting(ObjectiveType[] objective_types, List<Individual> front)
+        public List<Individual> CrowdingDistanceSorting(ObjectiveType[] objective_types, List<Individual> I)
         {
             List<Individual> results = new List<Individual>();
-            CrowdingDistanceAssignment(objective_types, front);
-            results = DescendSort(front, 0, front.Count - 1);
+            foreach (Individual p in I)
+            {
+                p.distance = 0;
+            }
+
+            for (int g = 0; g < objective_types.Length; g++)
+            {
+                I = QuickSort(I, g, 0, I.Count - 1);
+                I[0].distance = Int32.MaxValue;
+                I[I.Count - 1].distance = Int32.MaxValue;
+
+                for (int i = 1; i < I.Count - 1; i++)
+                {
+                    I[i].distance = Math.Round(I[i].distance + (I[i + 1].Objectives[g] - I[i - 1].Objectives[g]) / (I[I.Count - 1].Objectives[g] - I[0].Objectives[g]), 2);
+                }
+            }
+            results = DescendSort(I, 0, I.Count - 1);
             return results;
         }
-
     }
 }
