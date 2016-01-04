@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MOCSPTW", "MOCSPTW\MOCSPTW.csproj", "{D5E334E0-D876-4D7E-928F-0A7186D34EE0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MOP", "MOP\MOP.csproj", "{D5E334E0-D876-4D7E-928F-0A7186D34EE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MOCSPTWTests", "MOCSPTWTests\MOCSPTWTests.csproj", "{8EDD03A8-0507-4D5A-B62A-26D338FF6175}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MOPTests", "MOPTests\MOPTests.csproj", "{8EDD03A8-0507-4D5A-B62A-26D338FF6175}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

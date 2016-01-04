@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MOCSPTWTests</RootNamespace>
-    <AssemblyName>MOCSPTWTests</AssemblyName>
+    <AssemblyName>MOPTests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,9 +55,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MOCSPTW\MOCSPTW.csproj">
+    <ProjectReference Include="..\MOP\MOP.csproj">
       <Project>{D5E334E0-D876-4D7E-928F-0A7186D34EE0}</Project>
-      <Name>MOCSPTW</Name>
+      <Name>MOP</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
