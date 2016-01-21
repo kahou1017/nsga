@@ -1,6 +1,9 @@
 userCont: 8
-maxConnect: 6
 User(i) User(j) Count
-     0      1    300
-     0      2    50    
-     2      3    37
+     0      3    100
+     0      4    50
+     0      5    80
+	 10     5    10
+     0      6    70
+	 12     6    10
+     2      3    10

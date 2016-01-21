@@ -10,22 +10,23 @@ if not os.path.exists('sample'):
     os.makedirs('sample')
 
 USER_COUNT = 8
+MAX_CONNECT = 6
 MAX_HISTORY = 100
-PARAMETER = 0.5
+PARAMETER = 0
 MIN_VALUE = 1000000000
 #FILE_NAME = str(USER_COUNT) + '_' + str(MAX_CONNECT) + '.txt'
-FILE_NAME = 'sample_3' + '.txt'
-FIG_NAME = str(USER_COUNT) + '_' + '.png'
+FILE_NAME = 'sample_1' + '.txt'
+FIG_NAME = str(USER_COUNT) + '_' + str(MAX_CONNECT) + '.png'
 PATH = os.path.dirname(__file__) + '/sample/'
 
-def data_generator(userCount):
+def data_generator(userCount, maxConnect):
     # add new object
     obj = dict()
     # initial while loop number
     userIdx = 0
     while userIdx < userCount:
         # setting user connect number
-        connectNum = random.randint(0, userCount - 1)
+        connectNum = random.randint(0, maxConnect)
         #connectNum = maxConnect
         # Generate a random array ignore userIdx
         randarray = [i for i in random.sample(range(0, userCount), userCount) if i != userIdx]
@@ -38,21 +39,6 @@ def data_generator(userCount):
                 obj[userIdx][randomUser] = random.randint(1, MAX_HISTORY)
         userIdx += 1
     return obj
-
-def sum(data):
-    sum_data = dict()
-    for i in range(len(data)):
-        for j in iter(data[i]):
-            sum = 0
-            if (sum_data.get(i, 'null') == 'null'):
-                sum_data[i] = dict()
-            if(data[i].get(j, 'null') != 'null'):
-                if (sum_data[i].get(j, 'null') == 'null'):
-                    sum += data[i][j]
-            if(data[j].get(i, 'null') != 'null'):
-                sum += data[j][i]
-            sum_data[i][j] = sum
-    return sum_data
 
 def sum_data(data):
     sum_data = dict()
@@ -88,7 +74,7 @@ def sum_data(data):
 def writeFile(data):
     file = open(PATH + FILE_NAME, 'w')
     file.writelines('userCont: {0}\n'.format(USER_COUNT).encode('utf-8'))
-    #file.writelines('maxConnect: {0}\n'.format(MAX_CONNECT).encode('utf-8'))
+    file.writelines('maxConnect: {0}\n'.format(MAX_CONNECT).encode('utf-8'))
     file.writelines('{0:6} {1:6} {2:5}\n'.format("User(i)", "User(j)", "Count").encode('utf-8'))
     for i in iter(data):
         for j in iter(data[i]):
@@ -96,10 +82,12 @@ def writeFile(data):
     file.close()
 
 def readFile():
+    #array = np.array([])
     sample = dict()
+    group = dict
     file = open(PATH + FILE_NAME, 'r')
     for i, line in enumerate(file):
-        if (i >= 2):
+        if (i >= 3):
             list = map(int, line.split())
             if(sample.get(list[0], 'null') == 'null'):
                 sample[list[0]] = dict()
@@ -107,7 +95,10 @@ def readFile():
             else:
                 if(sample[list[0]].get(list[1], 'null') == 'null'):
                     sample[list[0]][list[1]] = list[2]
+            #temp = np.array(map(int, line.split()))
+            #array = np.append(array, temp)
     file.close()
+    #array = np.reshape(array.size/3, 3)
     return sample
 
 def drawFig(data):
@@ -218,9 +209,9 @@ def impact_ranking(group):
     print temp
     return rank
 
-#data = data_generator(USER_COUNT)
-#group = sum(data)
+#data = data_generator(USER_COUNT, MAX_CONNECT)
+#group = sum_data(data)
 #writeFile(group)
 group = readFile()
 #graph = drawFig(group)
-impact_ranking(group)
+impact_ranking.impact_ranking(group)
