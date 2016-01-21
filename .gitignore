@@ -233,5 +233,5 @@ _Pvt_Extensions
 
 # Python
 .idea
-.PythonProj/sample/
-.deap/
+PythonProj/sample/
+deap/
