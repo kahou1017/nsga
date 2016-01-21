@@ -1,0 +1,7 @@
+userCont: 8
+maxConnect: 6
+User(i) User(j) Count
+     0      3    85
+     0      4    52
+     0      5    60
+     2      3    37

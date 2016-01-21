@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 
-namespace MOCSPTW
+namespace MOP
 {
     class Program
     {
         static void Main(string[] args)
         {
-            List<Individual> _individualArray = new List<Individual>();
+            Front front_solutions = new Front();
 
             //Console.SetBufferSize(100, 5000);
 
@@ -62,28 +61,28 @@ namespace MOCSPTW
             _individual21.SetObjectiveValues(new double[] { 4, 5 });
             _individual22.SetObjectiveValues(new double[] {6, 4});
 
-            _individualArray.Add(_individual1);
-            _individualArray.Add(_individual2);
-            _individualArray.Add(_individual3);
-            _individualArray.Add(_individual4);
-            _individualArray.Add(_individual5);
-            _individualArray.Add(_individual6);
-            _individualArray.Add(_individual7);
-            _individualArray.Add(_individual8);
-            _individualArray.Add(_individual9);
-            _individualArray.Add(_individual10);
-            _individualArray.Add(_individual11);
-            _individualArray.Add(_individual12);
-            _individualArray.Add(_individual13);
-            _individualArray.Add(_individual14);
-            _individualArray.Add(_individual15);
-            _individualArray.Add(_individual16);
-            _individualArray.Add(_individual17);
-            _individualArray.Add(_individual18);
-            _individualArray.Add(_individual19);
-            _individualArray.Add(_individual20);
-            _individualArray.Add(_individual21);
-            _individualArray.Add(_individual22);
+            front_solutions.Add(_individual1);
+            front_solutions.Add(_individual2);
+            front_solutions.Add(_individual3);
+            front_solutions.Add(_individual4);
+            front_solutions.Add(_individual5);
+            front_solutions.Add(_individual6);
+            front_solutions.Add(_individual7);
+            front_solutions.Add(_individual8);
+            front_solutions.Add(_individual9);
+            front_solutions.Add(_individual10);
+            front_solutions.Add(_individual11);
+            front_solutions.Add(_individual12);
+            front_solutions.Add(_individual13);
+            front_solutions.Add(_individual14);
+            front_solutions.Add(_individual15);
+            front_solutions.Add(_individual16);
+            front_solutions.Add(_individual17);
+            front_solutions.Add(_individual18);
+            front_solutions.Add(_individual19);
+            front_solutions.Add(_individual20);
+            front_solutions.Add(_individual21);
+            front_solutions.Add(_individual22);
 
             // 設定期望目標的最大或最小
             ObjectiveType[] _ObjectiveTypes = {
@@ -91,7 +90,7 @@ namespace MOCSPTW
                 ObjectiveType.Min
             };
             
-            List<List<Individual>> fronts = new Util().FastNonDominatedSorting(_ObjectiveTypes, _individualArray);
+            List<Front> fronts = new Utils().FastNonDominatedSorting(_ObjectiveTypes, front_solutions);
 
             Console.WriteLine("========================================");
             Console.WriteLine("====== Fast Non-Dominated Sorting ======");
@@ -113,7 +112,7 @@ namespace MOCSPTW
 
             for (int i = 0; i < fronts.Count; i++)
             {
-                List<Individual> I = new Util().CrowdingDistanceSorting(_ObjectiveTypes, fronts[i]);
+                List<Individual> I = new Utils().CrowdingDistanceSorting(_ObjectiveTypes, fronts[i]);
                 Console.WriteLine("Front {0} Crowding Distance Sorting Results:", (i+1));
                 for (int j = 0; j < I.Count; j++)
                 {

@@ -1,4 +1,4 @@
-﻿namespace MOCSPTW
+﻿namespace MOP
 {
     /// <summary>
     /// Define the expected value Min or Max

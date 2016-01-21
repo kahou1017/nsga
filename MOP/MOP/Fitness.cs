@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
-namespace MOCSPTW
+namespace MOP
 {
     public class Fitness
     {
@@ -40,6 +42,39 @@ namespace MOCSPTW
             }
 
             return true;
+        }
+
+        public static double EuclideanDistance(double pointA, double pointB)
+        {
+            double distance = Double.MaxValue;
+
+
+
+            return distance;
+        }
+
+        public static double distanceToClosestPoint(double point, List<Individual> front)
+        {
+            double minDistance = Double.MaxValue;
+
+            return minDistance;
+        }
+
+        public double GenerationalDistance(ObjectiveType[] objective_types, List<Individual> refFront, List<Individual> pFront)
+        {
+            double value = 0.0;
+            double sum = 0.0;
+            double pow = 2.0;
+            for (int i = 0; i < pFront.Count; i++)
+            {
+
+            }
+
+            sum = Math.Pow(sum, 1.0 / pow);
+
+            value = sum / pFront.Count;
+
+            return value;
         }
     }
 }

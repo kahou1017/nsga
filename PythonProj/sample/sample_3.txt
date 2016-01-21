@@ -1,0 +1,6 @@
+userCont: 8
+maxConnect: 6
+User(i) User(j) Count
+     0      1    300
+     0      2    50    
+     2      3    37

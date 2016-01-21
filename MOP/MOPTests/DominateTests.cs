@@ -1,7 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using MOP;
 
-namespace MOCSPTW.Tests
+namespace MOP.Tests
 {
     [TestClass()]
     public class DominateTests

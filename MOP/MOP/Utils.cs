@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MOCSPTW
+namespace MOP
 {
-    class Util
+    class Utils
     {
         /// <summary>
         /// 
@@ -11,7 +11,7 @@ namespace MOCSPTW
         /// <param name="_individualArray"></param>
         /// <param name="indexA"></param>
         /// <param name="indexB"></param>
-        public static void Swap(List<Individual> _individualArray, int indexA, int indexB)
+        public static void Swap(Front _individualArray, int indexA, int indexB)
         {
             Individual temp = _individualArray[indexA];
             _individualArray[indexA] = _individualArray[indexB];
@@ -26,7 +26,7 @@ namespace MOCSPTW
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public static List<Individual> QuickSort(List<Individual> _individualArray, int num_obj, int left, int right)
+        public static Front QuickSort(Front _individualArray, ObjectiveType[] objective_types, int num_obj, int left, int right)
         {
             if (right <= left)
                 return _individualArray;
@@ -37,36 +37,47 @@ namespace MOCSPTW
             int swapIndex = left;
             for (int i = left; i < right; ++i)
             {
-                if (_individualArray[i].Objectives[num_obj] <= pivot.Objectives[num_obj])
+                if (objective_types[num_obj] == ObjectiveType.Min)
                 {
-                    Swap(_individualArray, i, swapIndex);
-                    ++swapIndex;
+                    if (_individualArray[i].Objectives[num_obj] <= pivot.Objectives[num_obj])
+                    {
+                        Swap(_individualArray, i, swapIndex);
+                        ++swapIndex;
+                    }
+                }
+                else
+                {
+                    if (_individualArray[i].Objectives[num_obj] >= pivot.Objectives[num_obj])
+                    {
+                        Swap(_individualArray, i, swapIndex);
+                        ++swapIndex;
+                    }
                 }
             }
             Swap(_individualArray, swapIndex, right);
 
-            QuickSort(_individualArray, num_obj,  left, swapIndex - 1);
-            QuickSort(_individualArray, num_obj, swapIndex + 1, right);
+            QuickSort(_individualArray, objective_types, num_obj,  left, swapIndex - 1);
+            QuickSort(_individualArray, objective_types, num_obj, swapIndex + 1, right);
 
             return _individualArray;
         }
 
         /// <summary>
         /// Fast Non-Dominated Sorting;
-        /// Use this function can sort populations rank and level;
+        /// Use this function can sort solutions rank and level;
         /// </summary>
         /// <param name="objective_types"></param>
-        /// <param name="populations"></param>
+        /// <param name="solutions"></param>
         /// <returns></returns>
-        public List<List<Individual>> FastNonDominatedSorting(ObjectiveType[] objective_types, List<Individual> populations)
+        public List<Front> FastNonDominatedSorting(ObjectiveType[] objective_types, Front solutions)
         {
-            List<List<Individual>> fronts = new List<List<Individual>>();
+            List<Front> fronts = new List<Front>();
 
-            fronts.Add(new List<Individual>());
+            fronts.Add(new Front());
 
-            foreach (Individual p in populations)
+            foreach (Individual p in solutions)
             {
-                foreach (Individual q in populations)
+                foreach (Individual q in solutions)
                 {
                     if (p.Objectives != q.Objectives)
                     {
@@ -91,7 +102,7 @@ namespace MOCSPTW
 
             while (fronts[i].Count != 0) //while the front still has members
             {
-                List<Individual> Q = new List<Individual>();
+                Front Q = new Front();
                 foreach (Individual p in fronts[i])
                 {
                     p.rank = i + 1;
@@ -106,7 +117,7 @@ namespace MOCSPTW
                     }
                 }
                 i++;
-                fronts.Add(new List<Individual>());
+                fronts.Add(new Front());
                 fronts[i] = Q;
             }
 
@@ -127,7 +138,7 @@ namespace MOCSPTW
         /// </summary>
         /// <param name="objective_types"></param>
         /// <param name="I"></param>
-        public void CrowdingDistanceAssignment(ObjectiveType[] objective_types, List<Individual> I)
+        public void CrowdingDistanceAssignment(ObjectiveType[] objective_types, Front I)
         {
             foreach (Individual p in I)
             {
@@ -136,7 +147,7 @@ namespace MOCSPTW
 
             for (int g = 0; g < objective_types.Length; g++)
             {
-                I = QuickSort(I, g, 0, I.Count - 1);
+                I = QuickSort(I, objective_types, g, 0, I.Count - 1);
                 Console.WriteLine("Object " + (g + 1) + "'s sorting");
                 for (int i = 0; i < I.Count; i++)
                 {
@@ -164,7 +175,7 @@ namespace MOCSPTW
         /// <param name="left"></param>
         /// <param name="right"></param>
         /// <returns></returns>
-        public List<Individual> DescendSort(List<Individual> _individualArray, int left, int right)
+        public List<Individual> DescendSort(Front _individualArray, int left, int right)
         {
             if (right <= left)
                 return _individualArray;
@@ -196,7 +207,7 @@ namespace MOCSPTW
         /// <param name="objective_types"></param>
         /// <param name="front"></param>
         /// <returns></returns>
-        public List<Individual> CrowdingDistanceSorting(ObjectiveType[] objective_types, List<Individual> I)
+        public List<Individual> CrowdingDistanceSorting(ObjectiveType[] objective_types, Front I)
         {
             List<Individual> results = new List<Individual>();
             foreach (Individual p in I)
@@ -206,9 +217,9 @@ namespace MOCSPTW
 
             for (int g = 0; g < objective_types.Length; g++)
             {
-                I = QuickSort(I, g, 0, I.Count - 1);
-                I[0].distance = Int32.MaxValue;
-                I[I.Count - 1].distance = Int32.MaxValue;
+                I = QuickSort(I, objective_types, g, 0, I.Count - 1);
+                I[0].distance = Double.MaxValue;
+                I[I.Count - 1].distance = Double.MaxValue;
 
                 for (int i = 1; i < I.Count - 1; i++)
                 {
