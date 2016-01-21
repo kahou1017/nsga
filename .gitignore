@@ -233,4 +233,4 @@ _Pvt_Extensions
 
 # Python
 .idea
-.PythonProj/sample
+.PythonProj/sample/*
