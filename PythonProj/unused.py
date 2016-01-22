@@ -40,6 +40,26 @@ def data_generator(userCount, maxConnect):
         userIdx += 1
     return obj
 
+def sum(data):
+    sum_data = dict()
+    for i in range(len(data)):
+        for j in iter(data[i]):
+            sum = 0
+            if (sum_data.get(i, 'null') == 'null'):
+                sum_data[i] = dict()
+            if (sum_data.get(j, 'null') == 'null'):
+                sum_data[j] = dict()
+            if(data[i].get(j, 'null') != 'null'):
+                if (sum_data[i].get(j, 'null') == 'null'):
+                    sum += data[i][j]
+            if(data[j].get(i, 'null') != 'null'):
+                if (sum_data[j].get(i, 'null') == 'null'):
+                    sum += data[j][i]
+            if(sum > 0):
+                sum_data[i][j] = sum
+                sum_data[j][i] = sum
+    return sum_data
+
 def sum_data(data):
     sum_data = dict()
     for i in iter(data):

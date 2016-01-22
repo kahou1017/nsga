@@ -3,19 +3,19 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import sys
 import math
-import numpy as np
 import os
 
 if not os.path.exists('sample'):
     os.makedirs('sample')
 
-USER_COUNT = 8
-MAX_HISTORY = 100
+USER_COUNT = 10
+MAX_HISTORY = 50
 PARAMETER = 0.5
 MIN_VALUE = 1000000000
 #FILE_NAME = str(USER_COUNT) + '_' + str(MAX_CONNECT) + '.txt'
-FILE_NAME = 'sample_3' + '.txt'
-FIG_NAME = str(USER_COUNT) + '_' + '.png'
+SAMPLE_NUM = 5
+FILE_NAME = 'sample_' + str(SAMPLE_NUM) + '.txt'
+FIG_NAME = 'sample_' + str(SAMPLE_NUM) + '.png'
 PATH = os.path.dirname(__file__) + '/sample/'
 
 def data_generator(userCount):
@@ -41,7 +41,7 @@ def data_generator(userCount):
 
 def sum(data):
     sum_data = dict()
-    for i in range(len(data)):
+    for i in iter(data):
         for j in iter(data[i]):
             sum = 0
             if (sum_data.get(i, 'null') == 'null'):
@@ -49,9 +49,11 @@ def sum(data):
             if(data[i].get(j, 'null') != 'null'):
                 if (sum_data[i].get(j, 'null') == 'null'):
                     sum += data[i][j]
-            if(data[j].get(i, 'null') != 'null'):
-                sum += data[j][i]
-            sum_data[i][j] = sum
+            if(data.get(j ,'null') != 'null'):
+                if(data[j].get(i, 'null') != 'null'):
+                        sum += data[j][i]
+            if(sum > 0):
+                sum_data[i][j] = sum
     return sum_data
 
 def sum_data(data):
@@ -87,7 +89,7 @@ def sum_data(data):
 
 def writeFile(data):
     file = open(PATH + FILE_NAME, 'w')
-    file.writelines('userCont: {0}\n'.format(USER_COUNT).encode('utf-8'))
+    file.writelines('userCount: {0}\n'.format(USER_COUNT).encode('utf-8'))
     #file.writelines('maxConnect: {0}\n'.format(MAX_CONNECT).encode('utf-8'))
     file.writelines('{0:6} {1:6} {2:5}\n'.format("User(i)", "User(j)", "Count").encode('utf-8'))
     for i in iter(data):
@@ -198,9 +200,9 @@ def impact_ranking(group):
             if(rank.get(count, 'null') == 'null'):
                 rank[count] = dict()
             for j in iter(edge[i]):
-                sum1 += ((1 - PARAMETER) / float(len(edge))) * rank[count][j]
+                sum1 += ((1 - PARAMETER) / float(len(edge))) * float(rank[count][j])
                 numerator += float(weight[i][j]) * float(rank[count][j])
-                denominator += float(weight[i][j])
+                denominator += float(rank[count][j])
             sum2 = float(numerator) / float(denominator)
             if(rank.get(count + 1, 'null') == 'null'):
                 rank[count + 1] = dict()
@@ -214,7 +216,7 @@ def impact_ranking(group):
     print rank[len(rank) - 1]
     temp = rank[len(rank) - 1]
     for i in iter(temp):
-        temp[i] = round(temp[i] * MIN_VALUE * 100, 4)
+        temp[i] = round(temp[i] * 100, 4)
     print temp
     return rank
 
