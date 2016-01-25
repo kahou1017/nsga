@@ -4,16 +4,16 @@ import matplotlib.pyplot as plt
 import sys
 import math
 import os
+import main
 
-USER_COUNT = 10
-MAX_HISTORY = 50
-PARAMETER = 0.5
-MIN_VALUE = 1000000000
-#FILE_NAME = str(USER_COUNT) + '_' + str(MAX_CONNECT) + '.txt'
-SAMPLE_NUM = 10
-FILE_NAME = 'sample_' + str(SAMPLE_NUM) + '.txt'
-FIG_NAME = 'sample_' + str(SAMPLE_NUM) + '.png'
-PATH = os.path.dirname(__file__) + '/sample/'
+USER_COUNT = main.USER_COUNT
+MAX_HISTORY = main.MAX_HISTORY
+PARAMETER = main.PARAMETER
+MIN_VALUE = main.MIN_VALUE
+SAMPLE_NUM = main.SAMPLE_NUM
+FILE_NAME = main.FILE_NAME
+FIG_NAME = main.FIG_NAME
+PATH = main.PATH
 
 def data_generator(userCount):
     # add new object
@@ -221,10 +221,3 @@ def impact_ranking(group):
         #temp[i] = round(temp[i] * MIN_VALUE * 100, 4)
     print temp
     return rank
-
-#data = data_generator(USER_COUNT)
-#group = sum_data(data)
-#utils.writeFile(group)
-group = readFile()
-#graph = drawFig(group)
-impact_ranking(group)
