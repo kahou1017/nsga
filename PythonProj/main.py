@@ -102,12 +102,13 @@ def readFile():
     for i, line in enumerate(file):
         if (i >= 2):
             list = map(int, line.split())
-            if(sample.get(list[0], 'null') == 'null'):
-                sample[list[0]] = dict()
-                sample[list[0]][list[1]] = list[2]
-            else:
-                if(sample[list[0]].get(list[1], 'null') == 'null'):
+            if(list != []):
+                if(sample.get(list[0], 'null') == 'null'):
+                    sample[list[0]] = dict()
                     sample[list[0]][list[1]] = list[2]
+                else:
+                    if(sample[list[0]].get(list[1], 'null') == 'null'):
+                        sample[list[0]][list[1]] = list[2]
     file.close()
     return sample
 
